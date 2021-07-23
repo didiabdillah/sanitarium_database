@@ -33,6 +33,11 @@ Route::group(['prefix' => 'resource'], function () {
 //Source
 Route::group(['prefix' => 'source'], function () {
     Route::get('/', 'SourceController@index')->name('source');
+    Route::get('/insert', 'SourceController@create')->name('source_create');
+    Route::post('/insert', 'SourceController@store')->name('source_store');
+    Route::get('/{id}/edit', 'SourceController@edit')->name('source_edit');
+    Route::patch('/{id}/edit', 'SourceController@update')->name('source_update');
+    Route::delete('/{id}/destroy', 'SourceController@destroy')->name('source_destroy');
 });
 
 //Author

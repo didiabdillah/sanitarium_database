@@ -132,7 +132,7 @@
                         </a>
                     </li>
                     <li class="@if(Request::segment(1) == 'subcategory'){{'active'}}@endif">
-                        <a href="{{route('subcategory')}}">
+                        <a href="{{route('sub_category')}}">
                             <i class="material-icons">layers</i>
                             <span>SubCategory</span>
                         </a>

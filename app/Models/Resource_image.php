@@ -10,6 +10,7 @@ class Resource_image extends Model
     public $incrementing = false;
 
     protected $fillable = [
+        'resource_image_id',
         'resource_image_resource_id',
         'resource_image_link',
         'resource_image_status',

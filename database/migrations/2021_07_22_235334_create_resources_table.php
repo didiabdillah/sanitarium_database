@@ -16,8 +16,10 @@ class CreateResourcesTable extends Migration
         Schema::create('resources', function (Blueprint $table) {
             $table->string('resource_id', 64)->unique()->primary();
 
-            $table->string('resource_category_id', 64);
-            $table->string('resource_sub_category_id', 64);
+            $table->string('resource_category_id', 64)->nullable();
+            $table->string('resource_sub_category_id', 64)->nullable();
+            $table->string('resource_source')->nullable();
+            $table->string('resource_author')->nullable();
 
             $table->string('resource_label');
 
@@ -29,6 +31,8 @@ class CreateResourcesTable extends Migration
 
             $table->foreign('resource_category_id')->references('category_id')->on('categories')->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('resource_sub_category_id')->references('sub_category_id')->on('sub_categories')->onUpdate('cascade')->onDelete('cascade');
+            // $table->foreign('resource_source_id')->references('source_id')->on('sources')->onUpdate('cascade')->onDelete('cascade');
+            // $table->foreign('resource_author_id')->references('author_id')->on('authors')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 
@@ -42,6 +46,8 @@ class CreateResourcesTable extends Migration
         Schema::table('resources', function (Blueprint $table) {
             $table->dropForeign('resources_resource_category_id_foreign');
             $table->dropForeign('resources_resource_sub_category_id_foreign');
+            // $table->dropForeign('resources_resource_source_id_foreign');
+            // $table->dropForeign('resources_resource_author_id_foreign');
         });
         Schema::dropIfExists('resources');
     }

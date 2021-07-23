@@ -10,6 +10,7 @@ class Source extends Model
     public $incrementing = false;
 
     protected $fillable = [
+        'source_id',
         'source_label',
         'source_link',
     ];

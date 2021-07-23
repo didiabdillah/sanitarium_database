@@ -10,6 +10,7 @@ class Author extends Model
     public $incrementing = false;
 
     protected $fillable = [
+        'author_id',
         'author_label',
         'author_link',
     ];

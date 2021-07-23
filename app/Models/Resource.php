@@ -10,8 +10,11 @@ class Resource extends Model
     public $incrementing = false;
 
     protected $fillable = [
+        'resource_id',
         'resource_category_id',
         'resource_sub_category_id',
+        'resource_source',
+        'resource_author',
         'resource_label',
         'resource_desc',
         'resource_status',

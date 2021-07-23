@@ -11,6 +11,7 @@ class Sub_category extends Model
     public $incrementing = false;
 
     protected $fillable = [
+        'sub_category_id',
         'sub_category_label',
     ];
 

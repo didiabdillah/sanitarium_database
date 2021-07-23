@@ -17,7 +17,7 @@ class CreateResourceImagesTable extends Migration
             $table->string('resource_image_id', 64)->unique()->primary();
             $table->string('resource_image_resource_id', 64);
 
-            $table->string('resource_image_link');
+            $table->text('resource_image_link');
 
             $table->boolean('resource_image_status')->default(true);
 

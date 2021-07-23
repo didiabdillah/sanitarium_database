@@ -10,6 +10,7 @@ class Resource_link extends Model
     public $incrementing = false;
 
     protected $fillable = [
+        'resource_link_id',
         'resource_link_resource_id',
         'resource_link_url',
         'resource_link_status',

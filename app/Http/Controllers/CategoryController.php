@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Category;
 
 class CategoryController extends Controller
 {
@@ -13,7 +14,13 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        $category = Category::orderBy('categories.created_at', 'desc')->get();
+
+        $view_data = [
+            'category' => $category,
+        ];
+
+        return view('category.index', $view_data);
     }
 
     /**
@@ -23,7 +30,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('category.create');
     }
 
     /**
@@ -34,7 +41,46 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Input Validation
+        $request->validate(
+            [
+                'label'  => 'required|max:255',
+            ]
+        );
+
+        $label = htmlspecialchars($request->label);
+
+        //check is skema exist in DB
+        if (Category::where('category_label', htmlspecialchars($label))->count() > 0) {
+
+            //Flash Message
+            // flash_alert(
+            //     __('alert.icon_error'), //Icon
+            //     'Gagal', //Alert Message 
+            //     'Nama Skema Sudah Ada' //Sub Alert Message
+            // );
+
+            return redirect()->route('category_create');
+        }
+
+        $category_id =  uniqid() . strtotime(now());
+
+        $data = [
+            'category_id' => $category_id,
+            'category_label' => $label,
+        ];
+
+        //Insert Data
+        Category::create($data);
+
+        //Flash Message
+        // flash_alert(
+        //     __('alert.icon_success'), //Icon
+        //     'Sukses', //Alert Message 
+        //     'Skema Ditambahkan' //Sub Alert Message
+        // );
+
+        return redirect()->route('category');
     }
 
     /**
@@ -56,7 +102,13 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        $category = Category::where('category_id', $id)->first();
+
+        $view_data = [
+            'category' => $category,
+        ];
+
+        return view('category.edit', $view_data);
     }
 
     /**
@@ -68,7 +120,43 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // Input Validation
+        $request->validate(
+            [
+                'label'  => 'required|max:255',
+            ]
+        );
+
+        $label = htmlspecialchars($request->label);
+
+        //check is skema exist in DB
+        if (Category::where('category_label', htmlspecialchars($label))->where('category_id', '!=', $id)->count() > 0) {
+
+            //Flash Message
+            // flash_alert(
+            //     __('alert.icon_error'), //Icon
+            //     'Gagal', //Alert Message 
+            //     'Nama Skema Sudah Ada' //Sub Alert Message
+            // );
+
+            return redirect()->route('category_edit', $id);
+        }
+
+        $data = [
+            'category_label' => $label,
+        ];
+
+        //Update Data
+        Category::where('category_id', $id)->update($data);
+
+        //Flash Message
+        // flash_alert(
+        //     __('alert.icon_success'), //Icon
+        //     'Sukses', //Alert Message 
+        //     'Skema Ditambahkan' //Sub Alert Message
+        // );
+
+        return redirect()->route('category');
     }
 
     /**
@@ -79,6 +167,8 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Category::destroy($id);
+
+        return redirect()->route('category');
     }
 }

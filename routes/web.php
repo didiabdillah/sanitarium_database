@@ -53,6 +53,11 @@ Route::group(['prefix' => 'author'], function () {
 //Category
 Route::group(['prefix' => 'category'], function () {
     Route::get('/', 'CategoryController@index')->name('category');
+    Route::get('/insert', 'CategoryController@create')->name('category_create');
+    Route::post('/insert', 'CategoryController@store')->name('category_store');
+    Route::get('/{id}/edit', 'CategoryController@edit')->name('category_edit');
+    Route::patch('/{id}/edit', 'CategoryController@update')->name('category_update');
+    Route::delete('/{id}/destroy', 'CategoryController@destroy')->name('category_destroy');
 });
 
 //Sub Category

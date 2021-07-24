@@ -81,6 +81,10 @@
                                         @csrf
                                         @method('delete')
 
+                                        <a href="{{route('resource_status_edit', $row->resource_id)}}" class="btn bg-purple btn-circle waves-effect waves-circle waves-float">
+                                            <i class="material-icons">check</i>
+                                        </a>
+
                                         <a href="{{route('resource_edit', $row->resource_id)}}" class="btn bg-blue btn-circle waves-effect waves-circle waves-float">
                                             <i class="material-icons">edit</i>
                                         </a>

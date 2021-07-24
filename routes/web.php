@@ -13,10 +13,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'AuthController@login')->name('login');
-Route::get('auth/steam', 'AuthController@redirectToSteam')->name('auth_steam');
-Route::get('auth/steam/handle', 'AuthController@handle')->name('auth_steam_handle');
-Route::post('logout', 'Auth\LoginController@logout')->name('logout');
+Route::get('/', 'HomeController@index');
+// Route::get('/', 'AuthController@login')->name('login');
+// Route::get('auth/steam', 'AuthController@redirectToSteam')->name('auth_steam');
+// Route::get('auth/steam/handle', 'AuthController@handle')->name('auth_steam_handle');
+// Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 
 //Home
 Route::group(['prefix' => 'home'], function () {
@@ -31,6 +32,9 @@ Route::group(['prefix' => 'resource'], function () {
     Route::get('/{id}/edit', 'ResourceController@edit')->name('resource_edit');
     Route::patch('/{id}/edit', 'ResourceController@update')->name('resource_update');
     Route::delete('/{id}/destroy', 'ResourceController@destroy')->name('resource_destroy');
+
+    Route::get('/{id}/edit/status', 'ResourceController@status_edit')->name('resource_status_edit');
+    Route::patch('/{id}/edit/status', 'ResourceController@status_update')->name('resource_status_update');
 });
 
 //Source

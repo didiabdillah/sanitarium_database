@@ -304,4 +304,56 @@ class ResourceController extends Controller
 
         return redirect()->route('resource');
     }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function status_edit($id)
+    {
+        $resource = Resource::find($id);
+
+        $view_data = [
+            'resource' => $resource,
+        ];
+
+        return view('resource.status_edit', $view_data);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function status_update(Request $request, $id)
+    {
+        // Input Validation
+        $request->validate(
+            [
+                'status'  => 'required',
+            ]
+        );
+
+        $status = htmlspecialchars($request->status);
+
+        $data = [
+            'resource_status' => $status,
+        ];
+
+        //Update Data
+        Resource::where('resource_id', $id)->update($data);
+
+        //Flash Message
+        // flash_alert(
+        //     __('alert.icon_success'), //Icon
+        //     'Sukses', //Alert Message 
+        //     'Skema Ditambahkan' //Sub Alert Message
+        // );
+
+        return redirect()->route('resource');
+    }
 }

@@ -56,11 +56,11 @@ class AuthorController extends Controller
         if (Author::where('author_label', htmlspecialchars($label))->count() > 0) {
 
             //Flash Message
-            // flash_alert(
-            //     __('alert.icon_error'), //Icon
-            //     'Gagal', //Alert Message 
-            //     'Nama Skema Sudah Ada' //Sub Alert Message
-            // );
+            flash_alert(
+                __('alert.icon_error'), //Icon
+                'Gagal', //Alert Message 
+                'Author Already Exist' //Sub Alert Message
+            );
 
             return redirect()->route('author_create');
         }
@@ -77,11 +77,11 @@ class AuthorController extends Controller
         Author::create($data);
 
         //Flash Message
-        // flash_alert(
-        //     __('alert.icon_success'), //Icon
-        //     'Sukses', //Alert Message 
-        //     'Skema Ditambahkan' //Sub Alert Message
-        // );
+        flash_alert(
+            __('alert.icon_success'), //Icon
+            'Sukses', //Alert Message 
+            'Author Added' //Sub Alert Message
+        );
 
         return redirect()->route('author');
     }
@@ -138,11 +138,11 @@ class AuthorController extends Controller
         if (Author::where('author_label', htmlspecialchars($label))->where('author_id', '!=', $id)->count() > 0) {
 
             //Flash Message
-            // flash_alert(
-            //     __('alert.icon_error'), //Icon
-            //     'Gagal', //Alert Message 
-            //     'Nama Skema Sudah Ada' //Sub Alert Message
-            // );
+            flash_alert(
+                __('alert.icon_error'), //Icon
+                'Gagal', //Alert Message 
+                'Author Already Exist' //Sub Alert Message
+            );
 
             return redirect()->route('author_edit', $id);
         }
@@ -156,11 +156,11 @@ class AuthorController extends Controller
         Author::where('author_id', $id)->update($data);
 
         //Flash Message
-        // flash_alert(
-        //     __('alert.icon_success'), //Icon
-        //     'Sukses', //Alert Message 
-        //     'Skema Ditambahkan' //Sub Alert Message
-        // );
+        flash_alert(
+            __('alert.icon_success'), //Icon
+            'Sukses', //Alert Message 
+            'Author Updated' //Sub Alert Message
+        );
 
         return redirect()->route('author');
     }
@@ -174,6 +174,13 @@ class AuthorController extends Controller
     public function destroy($id)
     {
         Author::destroy($id);
+
+        //Flash Message
+        flash_alert(
+            __('alert.icon_success'), //Icon
+            'Sukses', //Alert Message 
+            'Author Deleted' //Sub Alert Message
+        );
 
         return redirect()->route('author');
     }

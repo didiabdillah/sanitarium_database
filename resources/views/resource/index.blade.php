@@ -58,13 +58,18 @@
                                     @if($row->resource_category_id)
                                     <span class="badge bg-purple">{{$row->category_label}}</span>
                                     <br>
+                                    @else
+                                    <span class="badge bg-teal">---</span>
+                                    <br>
                                     @endif
                                     @if($row->resource_sub_category_id)
                                     <span class="badge bg-blue">{{$row->sub_category_label}}</span>
+                                    @else
+                                    <span class="badge bg-cyan">---</span>
                                     @endif
                                 </td>
-                                <td>{{($row->resource_source_id) ? $row->source_label : "-" }}</td>
-                                <td>{{($row->resource_author_id) ? $row->author_label : "-" }}</td>
+                                <td>{{($row->source_label) ? $row->source_label : "-" }}</td>
+                                <td>{{($row->author_label) ? $row->author_label : "-" }}</td>
                                 <td>
                                     @if($row->resource_status == 'note')
                                     <span class="badge bg-blue">{{$row->resource_status}}</span>
@@ -89,7 +94,7 @@
                                             <i class="material-icons">edit</i>
                                         </a>
 
-                                        <button type="submit" class="btn bg-red btn-circle waves-effect waves-circle waves-float">
+                                        <button type="submit" class="btn bg-red btn-circle waves-effect waves-circle waves-float btn-remove">
                                             <i class="material-icons">delete</i>
                                         </button>
 
@@ -108,6 +113,29 @@
 @endsection
 
 @push('plugin')
+<script>
+    // --------------
+    // Delete Button
+    // --------------
+    $('.btn-remove').on('click', function(e) {
+        e.preventDefault();
+        var form = $(this).parents('form');
+        swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                form.submit();
+            }
+        });
+    });
+</script>
+
 <!-- Jquery DataTable Plugin Js -->
 <script src="{{URL::asset('assets/plugins/jquery-datatable/jquery.dataTables.js')}}">
 </script>

@@ -65,11 +65,11 @@ class SubCategoryController extends Controller
         if (Sub_category::where('sub_category_label', htmlspecialchars($label))->where('sub_category_category_id', htmlspecialchars($category))->count() > 0) {
 
             //Flash Message
-            // flash_alert(
-            //     __('alert.icon_error'), //Icon
-            //     'Gagal', //Alert Message 
-            //     'Nama Skema Sudah Ada' //Sub Alert Message
-            // );
+            flash_alert(
+                __('alert.icon_error'), //Icon
+                'Gagal', //Alert Message 
+                'Sub Category Already Exist' //Sub Alert Message
+            );
 
             return redirect()->route('sub_category_create');
         }
@@ -86,11 +86,11 @@ class SubCategoryController extends Controller
         Sub_category::create($data);
 
         //Flash Message
-        // flash_alert(
-        //     __('alert.icon_success'), //Icon
-        //     'Sukses', //Alert Message 
-        //     'Skema Ditambahkan' //Sub Alert Message
-        // );
+        flash_alert(
+            __('alert.icon_success'), //Icon
+            'Sukses', //Alert Message 
+            'Sub Category Added' //Sub Alert Message
+        );
 
         return redirect()->route('sub_category');
     }
@@ -149,11 +149,11 @@ class SubCategoryController extends Controller
         if (Sub_category::where('sub_category_label', htmlspecialchars($label))->where('sub_category_id', '!=', $id)->where('sub_category_category_id', htmlspecialchars($category))->count() > 0) {
 
             //Flash Message
-            // flash_alert(
-            //     __('alert.icon_error'), //Icon
-            //     'Gagal', //Alert Message 
-            //     'Nama Skema Sudah Ada' //Sub Alert Message
-            // );
+            flash_alert(
+                __('alert.icon_error'), //Icon
+                'Gagal', //Alert Message 
+                'Sub Category Already Exist' //Sub Alert Message
+            );
 
             return redirect()->route('sub_category_edit', $id);
         }
@@ -167,11 +167,11 @@ class SubCategoryController extends Controller
         Sub_category::where('sub_category_id', $id)->update($data);
 
         //Flash Message
-        // flash_alert(
-        //     __('alert.icon_success'), //Icon
-        //     'Sukses', //Alert Message 
-        //     'Skema Ditambahkan' //Sub Alert Message
-        // );
+        flash_alert(
+            __('alert.icon_success'), //Icon
+            'Sukses', //Alert Message 
+            'Sub Category Updated' //Sub Alert Message
+        );
 
         return redirect()->route('sub_category');
     }
@@ -185,6 +185,13 @@ class SubCategoryController extends Controller
     public function destroy($id)
     {
         Sub_category::destroy($id);
+
+        //Flash Message
+        flash_alert(
+            __('alert.icon_success'), //Icon
+            'Sukses', //Alert Message 
+            'Sub Category Deleted' //Sub Alert Message
+        );
 
         return redirect()->route('sub_category');
     }

@@ -54,11 +54,11 @@ class CategoryController extends Controller
         if (Category::where('category_label', htmlspecialchars($label))->count() > 0) {
 
             //Flash Message
-            // flash_alert(
-            //     __('alert.icon_error'), //Icon
-            //     'Gagal', //Alert Message 
-            //     'Nama Skema Sudah Ada' //Sub Alert Message
-            // );
+            flash_alert(
+                __('alert.icon_error'), //Icon
+                'Gagal', //Alert Message 
+                'Category Already Exist' //Sub Alert Message
+            );
 
             return redirect()->route('category_create');
         }
@@ -74,11 +74,11 @@ class CategoryController extends Controller
         Category::create($data);
 
         //Flash Message
-        // flash_alert(
-        //     __('alert.icon_success'), //Icon
-        //     'Sukses', //Alert Message 
-        //     'Skema Ditambahkan' //Sub Alert Message
-        // );
+        flash_alert(
+            __('alert.icon_success'), //Icon
+            'Sukses', //Alert Message 
+            'Category Added' //Sub Alert Message
+        );
 
         return redirect()->route('category');
     }
@@ -133,11 +133,11 @@ class CategoryController extends Controller
         if (Category::where('category_label', htmlspecialchars($label))->where('category_id', '!=', $id)->count() > 0) {
 
             //Flash Message
-            // flash_alert(
-            //     __('alert.icon_error'), //Icon
-            //     'Gagal', //Alert Message 
-            //     'Nama Skema Sudah Ada' //Sub Alert Message
-            // );
+            flash_alert(
+                __('alert.icon_error'), //Icon
+                'Gagal', //Alert Message 
+                'Category Already Exist' //Sub Alert Message
+            );
 
             return redirect()->route('category_edit', $id);
         }
@@ -150,11 +150,11 @@ class CategoryController extends Controller
         Category::where('category_id', $id)->update($data);
 
         //Flash Message
-        // flash_alert(
-        //     __('alert.icon_success'), //Icon
-        //     'Sukses', //Alert Message 
-        //     'Skema Ditambahkan' //Sub Alert Message
-        // );
+        flash_alert(
+            __('alert.icon_success'), //Icon
+            'Sukses', //Alert Message 
+            'Category Updated' //Sub Alert Message
+        );
 
         return redirect()->route('category');
     }
@@ -168,6 +168,13 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         Category::destroy($id);
+
+        //Flash Message
+        flash_alert(
+            __('alert.icon_success'), //Icon
+            'Sukses', //Alert Message 
+            'Category Deleted' //Sub Alert Message
+        );
 
         return redirect()->route('category');
     }

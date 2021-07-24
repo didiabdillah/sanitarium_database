@@ -93,11 +93,12 @@
             <!-- User Info -->
             <div class="user-info">
                 <div class="image">
-                    <img src="{{URL::asset('assets/file/image/user.png')}}" width="48" height="48" alt="User" />
+                    {{--<img src="{{URL::asset('assets/file/image/user.png')}}" width="48" height="48" alt="User" />--}}
+                    <img src="https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/avatars/b0/b05867ef1e2d8e381a7c437d35bf50147df7d775_full.jpg" width="48" height="48" alt="User" />
                 </div>
                 <div class="info-container">
-                    <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">John Doe</div>
-                    <div class="email">john.doe@example.com</div>
+                    <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Rehn</div>
+                    <div class="email">rehn@sanitarium.com</div>
                     <div class="btn-group user-helper-dropdown">
                         <i class="material-icons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">keyboard_arrow_down</i>
                         <ul class="dropdown-menu pull-right">
@@ -127,25 +128,25 @@
                     </li>
                     <li class="@if(Request::segment(1) == 'category'){{'active'}}@endif">
                         <a href="{{route('category')}}">
-                            <i class="material-icons">layers</i>
+                            <i class="material-icons">folder</i>
                             <span>Category</span>
                         </a>
                     </li>
                     <li class="@if(Request::segment(1) == 'subcategory'){{'active'}}@endif">
                         <a href="{{route('sub_category')}}">
-                            <i class="material-icons">layers</i>
+                            <i class="material-icons">folder_open</i>
                             <span>SubCategory</span>
                         </a>
                     </li>
                     <li class="@if(Request::segment(1) == 'author'){{'active'}}@endif">
                         <a href="{{route('author')}}">
-                            <i class="material-icons">layers</i>
+                            <i class="material-icons">edit</i>
                             <span>Author</span>
                         </a>
                     </li>
                     <li class="@if(Request::segment(1) == 'source'){{'active'}}@endif">
                         <a href="{{route('source')}}">
-                            <i class="material-icons">layers</i>
+                            <i class="material-icons">local_library</i>
                             <span>Source</span>
                         </a>
                     </li>
@@ -167,6 +168,8 @@
     </section>
 
     <section class="content">
+
+        @include('layout.flash_alert')
 
         @yield('page')
 
@@ -191,7 +194,13 @@
     <!-- Custom Js -->
     <script src="{{URL::asset('assets/js/admin.js')}}"></script>
 
+    <!-- Sweet Alert -->
+    <script src="{{URL::asset('assets/js/sweetalert2/sweetalert2.all.min.js')}}"></script>
+
     @stack('plugin')
+
+    <!-- Own Script -->
+    <script src="{{URL::asset('assets/js/ScriptSweetalert2.js')}}"></script>
 
     <!-- Demo Js -->
     <script src="{{URL::asset('assets/js/demo.js')}}"></script>

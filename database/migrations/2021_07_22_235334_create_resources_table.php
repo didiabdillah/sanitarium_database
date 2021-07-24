@@ -29,8 +29,8 @@ class CreateResourcesTable extends Migration
 
             $table->timestamps();
 
-            $table->foreign('resource_category_id')->references('category_id')->on('categories')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('resource_sub_category_id')->references('sub_category_id')->on('sub_categories')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('resource_category_id')->references('category_id')->on('categories')->onUpdate('cascade')->onDelete('set null');
+            $table->foreign('resource_sub_category_id')->references('sub_category_id')->on('sub_categories')->onUpdate('cascade')->onDelete('set null');
             // $table->foreign('resource_source_id')->references('source_id')->on('sources')->onUpdate('cascade')->onDelete('cascade');
             // $table->foreign('resource_author_id')->references('author_id')->on('authors')->onUpdate('cascade')->onDelete('cascade');
         });

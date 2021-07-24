@@ -57,11 +57,11 @@ class SourceController extends Controller
         if (Source::where('source_label', htmlspecialchars($label))->count() > 0) {
 
             //Flash Message
-            // flash_alert(
-            //     __('alert.icon_error'), //Icon
-            //     'Gagal', //Alert Message 
-            //     'Nama Skema Sudah Ada' //Sub Alert Message
-            // );
+            flash_alert(
+                __('alert.icon_error'), //Icon
+                'Gagal', //Alert Message 
+                'Source Already Exist' //Sub Alert Message
+            );
 
             return redirect()->route('source_create');
         }
@@ -78,11 +78,11 @@ class SourceController extends Controller
         Source::create($data);
 
         //Flash Message
-        // flash_alert(
-        //     __('alert.icon_success'), //Icon
-        //     'Sukses', //Alert Message 
-        //     'Skema Ditambahkan' //Sub Alert Message
-        // );
+        flash_alert(
+            __('alert.icon_success'), //Icon
+            'Sukses', //Alert Message 
+            'Source Added' //Sub Alert Message
+        );
 
         return redirect()->route('source');
     }
@@ -138,12 +138,12 @@ class SourceController extends Controller
         //check is skema exist in DB
         if (Source::where('source_label', htmlspecialchars($label))->where('source_id', '!=', $id)->count() > 0) {
 
-            //Flash Message
-            // flash_alert(
-            //     __('alert.icon_error'), //Icon
-            //     'Gagal', //Alert Message 
-            //     'Nama Skema Sudah Ada' //Sub Alert Message
-            // );
+            // Flash Message
+            flash_alert(
+                __('alert.icon_error'), //Icon
+                'Gagal', //Alert Message 
+                'Source Already Exist' //Sub Alert Message
+            );
 
             return redirect()->route('source_edit', $id);
         }
@@ -156,12 +156,12 @@ class SourceController extends Controller
         //Update Data
         Source::where('source_id', $id)->update($data);
 
-        //Flash Message
-        // flash_alert(
-        //     __('alert.icon_success'), //Icon
-        //     'Sukses', //Alert Message 
-        //     'Skema Ditambahkan' //Sub Alert Message
-        // );
+        // Flash Message
+        flash_alert(
+            __('alert.icon_success'), //Icon
+            'Sukses', //Alert Message 
+            'Source Updated' //Sub Alert Message
+        );
 
         return redirect()->route('source');
     }
@@ -175,6 +175,13 @@ class SourceController extends Controller
     public function destroy($id)
     {
         Source::destroy($id);
+
+        //Flash Message
+        flash_alert(
+            __('alert.icon_success'), //Icon
+            'Sukses', //Alert Message 
+            'Source Deleted' //Sub Alert Message
+        );
 
         return redirect()->route('source');
     }

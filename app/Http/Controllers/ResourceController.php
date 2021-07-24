@@ -21,8 +21,8 @@ class ResourceController extends Controller
      */
     public function index()
     {
-        $resource = Resource::join('categories', 'resources.resource_category_id', '=', 'categories.category_id')
-            ->join('sub_categories', 'resources.resource_sub_category_id', '=', 'sub_categories.sub_category_id')
+        $resource = Resource::leftjoin('categories', 'resources.resource_category_id', '=', 'categories.category_id')
+            ->leftjoin('sub_categories', 'resources.resource_sub_category_id', '=', 'sub_categories.sub_category_id')
             ->leftjoin('sources', 'resources.resource_source_id', '=', 'sources.source_id')
             ->leftjoin('authors', 'resources.resource_author_id', '=', 'authors.author_id')
             ->orderBy('resources.created_at', 'desc')->get();
@@ -89,18 +89,20 @@ class ResourceController extends Controller
         $images = str_replace(' ', '', explode(',', $image));
 
         //check is skema exist in DB
+        $no = 1;
         foreach ($links as $row) {
             if (Resource_link::where('resource_link_url', htmlspecialchars($row))->count() > 0) {
 
                 //Flash Message
-                // flash_alert(
-                //     __('alert.icon_error'), //Icon
-                //     'Gagal', //Alert Message 
-                //     'Nama Skema Sudah Ada' //Sub Alert Message
-                // );
+                flash_alert(
+                    __('alert.icon_error'), //Icon
+                    'Gagal', //Alert Message 
+                    'Resource Link ' . $no . ' Already Exist' //Sub Alert Message
+                );
 
                 return redirect()->route('resource');
             }
+            $no++;
         }
 
         $resource_id =  uniqid() . strtotime(now());
@@ -145,11 +147,11 @@ class ResourceController extends Controller
         }
 
         //Flash Message
-        // flash_alert(
-        //     __('alert.icon_success'), //Icon
-        //     'Sukses', //Alert Message 
-        //     'Skema Ditambahkan' //Sub Alert Message
-        // );
+        flash_alert(
+            __('alert.icon_success'), //Icon
+            'Sukses', //Alert Message 
+            'Resource Added' //Sub Alert Message
+        );
 
         return redirect()->route('resource_create');
     }
@@ -222,18 +224,20 @@ class ResourceController extends Controller
         $images = str_replace(' ', '', explode(',', $image));
 
         //check is skema exist in DB
+        $no = 1;
         foreach ($links as $row) {
             if (Resource_link::where('resource_link_url', htmlspecialchars($row))->where('resource_link_resource_id', '!=', $id)->count() > 0) {
 
                 //Flash Message
-                // flash_alert(
-                //     __('alert.icon_error'), //Icon
-                //     'Gagal', //Alert Message 
-                //     'Nama Skema Sudah Ada' //Sub Alert Message
-                // );
+                flash_alert(
+                    __('alert.icon_error'), //Icon
+                    'Gagal', //Alert Message 
+                    'Resource Link ' . $no . ' Already Exist' //Sub Alert Message
+                );
 
                 return redirect()->route('resource');
             }
+            $no++;
         }
 
         $category = Category::whereHas('sub_category', function ($query) use ($sub_category) {
@@ -283,11 +287,11 @@ class ResourceController extends Controller
         }
 
         //Flash Message
-        // flash_alert(
-        //     __('alert.icon_success'), //Icon
-        //     'Sukses', //Alert Message 
-        //     'Skema Ditambahkan' //Sub Alert Message
-        // );
+        flash_alert(
+            __('alert.icon_success'), //Icon
+            'Sukses', //Alert Message 
+            'Resource Updated' //Sub Alert Message
+        );
 
         return redirect()->route('resource');
     }
@@ -301,6 +305,13 @@ class ResourceController extends Controller
     public function destroy($id)
     {
         Resource::destroy($id);
+
+        //Flash Message
+        flash_alert(
+            __('alert.icon_success'), //Icon
+            'Sukses', //Alert Message 
+            'Resource Deleted' //Sub Alert Message
+        );
 
         return redirect()->route('resource');
     }
@@ -348,11 +359,11 @@ class ResourceController extends Controller
         Resource::where('resource_id', $id)->update($data);
 
         //Flash Message
-        // flash_alert(
-        //     __('alert.icon_success'), //Icon
-        //     'Sukses', //Alert Message 
-        //     'Skema Ditambahkan' //Sub Alert Message
-        // );
+        flash_alert(
+            __('alert.icon_success'), //Icon
+            'Sukses', //Alert Message 
+            'Status Updated' //Sub Alert Message
+        );
 
         return redirect()->route('resource');
     }

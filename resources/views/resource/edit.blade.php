@@ -35,7 +35,7 @@
                             <b>Source</b>
                         </p>
                         <select class="form-control show-tick @error('source'){{'error focused'}}@enderror" data-live-search="true" name="source">
-                            <option>--SOURCE--</option>
+                            <option value="">--SOURCE--</option>
                             @foreach($source as $row)
                             <option value="{{$row->source_id}}" @if($resource->resource_source_id==$row->source_id){{'selected'}}@endif>{{$row->source_label}}</option>
                             @endforeach
@@ -49,7 +49,7 @@
                             <b>Author</b>
                         </p>
                         <select class="form-control show-tick @error('author'){{'error focused'}}@enderror" data-live-search="true" name="author">
-                            <option>--AUTHOR--</option>
+                            <option value="">--AUTHOR--</option>
                             @foreach($author as $row)
                             <option value="{{$row->author_id}}" @if($resource->resource_author_id==$row->author_id){{'selected'}}@endif>{{$row->author_label}}</option>
                             @endforeach

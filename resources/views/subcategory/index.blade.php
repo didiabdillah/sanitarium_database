@@ -62,7 +62,7 @@
                                             <i class="material-icons">edit</i>
                                         </a>
 
-                                        <button type="submit" class="btn bg-red btn-circle waves-effect waves-circle waves-float">
+                                        <button type="submit" class="btn bg-red btn-circle waves-effect waves-circle waves-float btn-remove">
                                             <i class="material-icons">delete</i>
                                         </button>
 
@@ -81,6 +81,29 @@
 @endsection
 
 @push('plugin')
+<script>
+    // --------------
+    // Delete Button
+    // --------------
+    $('.btn-remove').on('click', function(e) {
+        e.preventDefault();
+        var form = $(this).parents('form');
+        swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                form.submit();
+            }
+        });
+    });
+</script>
+
 <!-- Jquery DataTable Plugin Js -->
 <script src="{{URL::asset('assets/plugins/jquery-datatable/jquery.dataTables.js')}}">
 </script>

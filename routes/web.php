@@ -13,7 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'HomeController@index');
+Route::get('/', 'AuthController@login')->name('login');
+Route::get('auth/steam', 'AuthController@redirectToSteam')->name('auth_steam');
+Route::get('auth/steam/handle', 'AuthController@handle')->name('auth_steam_handle');
+Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 
 //Home
 Route::group(['prefix' => 'home'], function () {

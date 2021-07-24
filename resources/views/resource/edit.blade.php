@@ -15,14 +15,15 @@
     <div class="row clearfix">
         <div class="card">
             <div class="header">
-                <h2>INSERT RESOURCE</h2>
+                <h2>EDIT RESOURCE</h2>
             </div>
             <div class="body">
-                <form id="form_validation" method="POST" method="{{route('resource_store')}}" enctype="multipart/form-data">
+                <form id="form_validation" method="POST" method="{{route('resource_update', $resource->resource_id)}}" enctype="multipart/form-data">
                     @csrf
+                    @method('patch')
                     <div class="form-group form-float">
                         <div class="form-line @error('label'){{'error focused'}}@enderror">
-                            <input type="text" class="form-control" name="label" value="{{old('label')}}">
+                            <input type="text" class="form-control" name="label" value="{{$resource->resource_label}}">
                             <label class="form-label">Label</label>
                         </div>
                         @error('label')
@@ -36,7 +37,7 @@
                         <select class="form-control show-tick @error('source'){{'error focused'}}@enderror" data-live-search="true" name="source">
                             <option>--SOURCE--</option>
                             @foreach($source as $row)
-                            <option value="{{$row->source_id}}" @if(old('source')==$row->source_id){{'selected'}}@endif>{{$row->source_label}}</option>
+                            <option value="{{$row->source_id}}" @if($resource->resource_source_id==$row->source_id){{'selected'}}@endif>{{$row->source_label}}</option>
                             @endforeach
                         </select>
                         @error('source')
@@ -50,7 +51,7 @@
                         <select class="form-control show-tick @error('author'){{'error focused'}}@enderror" data-live-search="true" name="author">
                             <option>--AUTHOR--</option>
                             @foreach($author as $row)
-                            <option value="{{$row->author_id}}" @if(old('author')==$row->author_id){{'selected'}}@endif>{{$row->author_label}}</option>
+                            <option value="{{$row->author_id}}" @if($resource->resource_author_id==$row->author_id){{'selected'}}@endif>{{$row->author_label}}</option>
                             @endforeach
                         </select>
                         @error('author')
@@ -66,7 +67,7 @@
                             @foreach($sub_category as $row)
                             <optgroup label="{{$row->category_label}}">
                                 @foreach($row->sub_category()->get() as $sub)
-                                <option value="{{$sub->sub_category_id}}" @if(old('sub_category')==$sub->sub_category_id){{'selected'}}@endif>{{$sub->sub_category_label}}</option>
+                                <option value="{{$sub->sub_category_id}}" @if($resource->resource_sub_category_id==$sub->sub_category_id){{'selected'}}@endif>{{$sub->sub_category_label}}</option>
                                 @endforeach
                             </optgroup>
                             @endforeach
@@ -78,25 +79,43 @@
                     </div>
                     <div class="form-group form-float">
                         <div class="form-line @error('desc'){{'error focused'}}@enderror">
-                            <textarea name="desc" cols="30" rows="3" class="form-control no-resize">{{old('desc')}}</textarea>
+                            <textarea name="desc" cols="30" rows="3" class="form-control no-resize">{{$resource->resource_desc}}</textarea>
                             <label class="form-label">Description</label>
                         </div>
                         @error('desc')
                         <label id="email-error" class="error" for="desc">{{$message}}</label>
                         @enderror
                     </div>
+
                     <div class="form-group form-float">
                         <div class="form-line @error('link'){{'error focused'}}@enderror">
-                            <textarea name="link" cols="30" rows="3" class="form-control no-resize">{{old('link')}}</textarea>
+                            @php
+                            $text_link = "";
+                            foreach($resource->resource_link()->get() as $link){
+                            $text_link .= $link->resource_link_url .", ";
+                            }
+                            @endphp
+
+                            <textarea name="link" cols="30" rows="3" class="form-control no-resize">{{$text_link}}</textarea>
+
                             <label class="form-label">Resource Link</label>
                         </div>
-                        @error('link')
+                        @error('image')
                         <label id="email-error" class="error" for="link">{{$message}}</label>
                         @enderror
                     </div>
+
                     <div class="form-group form-float">
                         <div class="form-line @error('image'){{'error focused'}}@enderror">
-                            <textarea name="image" cols="30" rows="3" class="form-control no-resize">{{old('image')}}</textarea>
+                            @php
+                            $text_image = "";
+                            foreach($resource->resource_image()->get() as $image){
+                            $text_image .= $image->resource_image_link .", ";
+                            }
+                            @endphp
+
+                            <textarea name="image" cols="30" rows="3" class="form-control no-resize">{{$text_image}}</textarea>
+
                             <label class="form-label">Resource Image Link</label>
                         </div>
                         @error('image')
@@ -105,7 +124,7 @@
                     </div>
 
                     <a class="btn btn-danger waves-effect btn-lg" href="{{route('resource')}}">CANCEL</a>
-                    <button class="btn btn-primary btn-lg waves-effect" type="submit">INSERT</button>
+                    <button class="btn btn-primary btn-lg waves-effect" type="submit">UPDATE</button>
                 </form>
             </div>
         </div>

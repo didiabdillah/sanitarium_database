@@ -18,8 +18,8 @@ class CreateResourcesTable extends Migration
 
             $table->string('resource_category_id', 64)->nullable();
             $table->string('resource_sub_category_id', 64)->nullable();
-            $table->string('resource_source')->nullable();
-            $table->string('resource_author')->nullable();
+            $table->string('resource_source_id')->nullable();
+            $table->string('resource_author_id')->nullable();
 
             $table->string('resource_label');
 

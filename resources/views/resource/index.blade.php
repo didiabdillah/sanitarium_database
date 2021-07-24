@@ -63,8 +63,8 @@
                                     <span class="badge bg-blue">{{$row->sub_category_label}}</span>
                                     @endif
                                 </td>
-                                <td>{{($row->resource_source) ? $row->resource_source : "-" }}</td>
-                                <td>{{($row->resource_author) ? $row->resource_author : "-" }}</td>
+                                <td>{{($row->resource_source_id) ? $row->source_label : "-" }}</td>
+                                <td>{{($row->resource_author_id) ? $row->author_label : "-" }}</td>
                                 <td>
                                     @if($row->resource_status == 'note')
                                     <span class="badge bg-blue">{{$row->resource_status}}</span>

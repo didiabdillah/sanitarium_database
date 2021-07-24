@@ -373,4 +373,48 @@ class ResourceController extends Controller
 
         return redirect()->route('resource');
     }
+
+    public function link_status($id)
+    {
+
+        $status = (Resource_link::where('resource_link_id', $id)->first()->resource_link_status == true) ? false : true;
+
+        $data = [
+            'resource_link_status' => $status,
+        ];
+
+        //Update Data
+        Resource_link::where('resource_link_id', $id)->update($data);
+
+        //Flash Message
+        flash_alert(
+            __('alert.icon_success'), //Icon
+            'Sukses', //Alert Message 
+            'Status Updated' //Sub Alert Message
+        );
+
+        return redirect()->back();
+    }
+
+    public function image_status($id)
+    {
+
+        $status = (Resource_image::where('resource_image_id', $id)->first()->resource_image_status == true) ? false : true;
+
+        $data = [
+            'resource_image_status' => $status,
+        ];
+
+        //Update Data
+        Resource_image::where('resource_image_id', $id)->update($data);
+
+        //Flash Message
+        flash_alert(
+            __('alert.icon_success'), //Icon
+            'Sukses', //Alert Message 
+            'Status Updated' //Sub Alert Message
+        );
+
+        return redirect()->back();
+    }
 }

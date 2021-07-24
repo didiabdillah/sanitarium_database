@@ -47,7 +47,14 @@
                         <div class="body">
                             <div class="list-group">
                                 @foreach($resource->resource_link()->get() as $data)
-                                <a href="{{$data->resource_link_url}}" class="list-group-item">{{$data->resource_link_url}}</a>
+                                <div class="row">
+                                    <div class="col-xs-10">
+                                        <a href="{{$data->resource_link_url}}" class="list-group-item">{{$data->resource_link_url}} <span class="badge {{($data->resource_link_status == true) ? 'bg-blue' : 'bg-red'}}">{{($data->resource_link_status == true) ? 'active' : 'deactive'}}</span></a>
+                                    </div>
+                                    <div class="col-xs-2">
+                                        <a href="{{route('resource_link_status', $data->resource_link_id)}}" class="btn {{($data->resource_link_status == true) ? 'btn-danger' : 'btn-success'}} btn-lg">{{($data->resource_link_status == true) ? 'Deactive' : 'Active'}}</a>
+                                    </div>
+                                </div>
                                 @endforeach
                             </div>
                         </div>
@@ -64,7 +71,14 @@
                         <div class="body">
                             <div class="list-group">
                                 @foreach($resource->resource_image()->get() as $data)
-                                <a href="{{$data->resource_image_link}}" class="list-group-item">{{$data->resource_image_link}}</a>
+                                <div class="row">
+                                    <div class="col-xs-10">
+                                        <a href="{{$data->resource_image_link}}" class="list-group-item">{{$data->resource_image_link}} <span class="badge {{($data->resource_image_status == true) ? 'bg-blue' : 'bg-red'}}">{{($data->resource_image_status == true) ? 'active' : 'deactive'}}</span></a>
+                                    </div>
+                                    <div class="col-xs-2">
+                                        <a href="{{route('resource_image_status', $data->resource_image_id)}}" class="btn {{($data->resource_image_status == true) ? 'btn-danger' : 'btn-success'}} btn-lg">{{($data->resource_image_status == true) ? 'Deactive' : 'Active'}}</a>
+                                    </div>
+                                </div>
                                 @endforeach
                             </div>
                         </div>

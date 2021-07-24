@@ -36,6 +36,9 @@ Route::group(['prefix' => 'resource'], function () {
 
     Route::get('/{id}/edit/status', 'ResourceController@status_edit')->name('resource_status_edit');
     Route::patch('/{id}/edit/status', 'ResourceController@status_update')->name('resource_status_update');
+
+    Route::get('/{id}/link/status', 'ResourceController@link_status')->name('resource_link_status');
+    Route::get('/{id}/image/status', 'ResourceController@image_status')->name('resource_image_status');
 });
 
 //Source

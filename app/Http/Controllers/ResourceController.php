@@ -164,7 +164,13 @@ class ResourceController extends Controller
      */
     public function show($id)
     {
-        //
+        $resource = Resource::find($id);
+
+        $view_data = [
+            'resource' => $resource,
+        ];
+
+        return view('resource.show', $view_data);
     }
 
     /**

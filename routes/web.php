@@ -27,6 +27,7 @@ Route::group(['prefix' => 'home'], function () {
 //Resource
 Route::group(['prefix' => 'resource'], function () {
     Route::get('/', 'ResourceController@index')->name('resource');
+    Route::get('/{id}/show', 'ResourceController@show')->name('resource_show');
     Route::get('/insert', 'ResourceController@create')->name('resource_create');
     Route::post('/insert', 'ResourceController@store')->name('resource_store');
     Route::get('/{id}/edit', 'ResourceController@edit')->name('resource_edit');
